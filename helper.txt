@@ -1,0 +1,49 @@
+1 create a databse named ecom
+
+2 create user table using
+
+create table user(uid varchar(16) primary key not null, uname varchar(40) not null, email varchar(60) not null, pno varchar(14) not null, addr varchar(80) not null, rdate date not null);
+
+3 create product table using 
+
+create table product(pid varchar(36) primary key not null, pname varchar(50) not null, cid varchar(16) not null, price int not null, stock int not null, adate date not null);
+
+4 and so on
+
+create table orders(oid varchar(36) primary key not null, uid varchar(16) not null, pid varchar(36) not null, odate date not null, qty int not null, tprice int not null);
+
+create table reviews(rid varchar(36) primary key not null, uid varchar(16) not null, pid varchar(36) not null, rating int not null, rtext text, rdate date not null);
+
+create table category(cid varchar(16) primary key not null, cname varchar(30), cdesc text, isactive bool not null);
+
+create table cart (
+    crt_id VARCHAR(16) PRIMARY KEY NOT NULL,        
+    uid VARCHAR(16) NOT NULL,                       
+    pid VARCHAR(36) NOT NULL,                       
+    qty INT NOT NULL,                               
+    price INT NOT NULL,                             
+    adate DATE NOT NULL,                            
+    FOREIGN KEY (uid) REFERENCES user(uid),       
+    FOREIGN KEY (pid) REFERENCES product(pid)    
+);
+
+CREATE TABLE shipping_address (
+    said VARCHAR(36) PRIMARY KEY,
+    uid VARCHAR(16) NOT NULL,
+    STREET VARCHAR(40),
+    CITY VARCHAR(30) NOT NULL,
+    STATE VARCHAR(30) NOT NULL,
+    POSTALCODE VARCHAR(10) NOT NULL,
+    FOREIGN KEY (uid) REFERENCES user(uid) 
+);
+
+CREATE TABLE paymentmethod (
+    PAYID VARCHAR(16) PRIMARY KEY,
+    UID VARCHAR(16) NOT NULL,
+    PTYPE VARCHAR(36) NOT NULL,
+    PTID INT NOT NULL,
+    IDNO VARCHAR(30) NOT NULL,
+    EXDATE DATE NOT NULL,
+    BillingZip VARCHAR(10) NOT NULL,
+    FOREIGN KEY (UID) REFERENCES user(UID) 
+);
