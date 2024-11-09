@@ -1,0 +1,5 @@
+Metadata-Version: 2.1
+Name: ecom
+Version: 0.1.0
+Summary: a part of backend for CTP project
+Requires-Dist: python-dotenv

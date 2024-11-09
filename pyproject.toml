@@ -1,0 +1,5 @@
+[project]
+name = "ecom"
+version = "0.1.0"
+description = "a part of backend for CTP project"
+dependencies = ["python-dotenv", "pymysql"]

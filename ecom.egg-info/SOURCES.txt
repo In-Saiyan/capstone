@@ -1,0 +1,8 @@
+README.md
+pyproject.toml
+ecom.egg-info/PKG-INFO
+ecom.egg-info/SOURCES.txt
+ecom.egg-info/dependency_links.txt
+ecom.egg-info/requires.txt
+ecom.egg-info/top_level.txt
+helper/user.py
