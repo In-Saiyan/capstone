@@ -5,4 +5,10 @@ ecom.egg-info/SOURCES.txt
 ecom.egg-info/dependency_links.txt
 ecom.egg-info/requires.txt
 ecom.egg-info/top_level.txt
-helper/user.py
+helpers/__init__.py
+helpers/auth.py
+helpers/cart.py
+helpers/order.py
+helpers/product.py
+helpers/search.py
+helpers/user.py

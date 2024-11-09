@@ -1,4 +1,5 @@
 1 create a databse named ecom
+if you want to use another name, just put that in .env and use that name whenever you reference the database
 
 2 create user table using
 
@@ -48,6 +49,7 @@ CREATE TABLE paymentmethod (
     FOREIGN KEY (UID) REFERENCES user(UID) 
 );
 
+create table user_passwords(uid varchar(16) primary key not null, hashed_password varchar(100));
 
 
 5 make a .env file with the following contents and put in your password
@@ -56,3 +58,16 @@ DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=[yourpass] 
 DB_NAME=ecom      
+
+
+project/
+├── utils/
+│   └── db.py            # Your existing database connection class
+├── helpers/
+│   ├── auth.py          # User authentication & authorization
+│   ├── user.py          # User management
+│   ├── product.py       # Product management
+│   ├── order.py         # Order processing
+│   ├── cart.py          # Shopping cart operations
+│   ├── search.py        # Search functionality
+│   └── payment.py       # Payment processing

@@ -1,1 +1,4 @@
 python-dotenv
+pymysql
+bcrypt
+pyjwt
