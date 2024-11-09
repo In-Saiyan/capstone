@@ -47,3 +47,12 @@ CREATE TABLE paymentmethod (
     BillingZip VARCHAR(10) NOT NULL,
     FOREIGN KEY (UID) REFERENCES user(UID) 
 );
+
+
+
+5 make a .env file with the following contents and put in your password
+
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=[yourpass] 
+DB_NAME=ecom      

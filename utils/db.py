@@ -7,7 +7,7 @@ load_dotenv()
 
 class DatabaseCon:
     def __init__(self):
-        # retrieve database credentials from environment variables
+        # retrieve database info from loaded dotenv
         self.host = os.getenv("DB_HOST")
         self.user = os.getenv("DB_USER")
         self.password = os.getenv("DB_PASSWORD")
@@ -34,9 +34,9 @@ class DatabaseCon:
     #         result = cursor.fetchall()
     #         return [list(row) for row in result]
 
-    def fetch_column(self, table_name, column_name):
+    def fetch_column(self, table_name: str, column_names: list) -> list:
         with self.connection.cursor() as cursor:
-            cursor.execute(f"SELECT {column_name} FROM {table_name}")
+            cursor.execute(f"SELECT {",".join(column_names)} FROM {table_name}")
             result = cursor.fetchall()
             return [list(row) for row in result]
 
