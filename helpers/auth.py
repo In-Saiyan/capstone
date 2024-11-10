@@ -1,7 +1,7 @@
 import os
 import jwt
 import bcrypt
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from utils.db import DatabaseConnection
 import hashlib
 
@@ -15,20 +15,13 @@ class Auth:
         self.secret_key = os.getenv("SECRET_KEY", "your_secret_key")  # Replace with a secure key
 
     def register(self, user_info: dict) -> str:
-        """
-        Register a new user using a dictionary of user info.
+        
+        uid = self._generate_uid(user_info['email']) 
 
-        Args:
-            user_info (dict): A dictionary containing user information with keys:
-                              'uname', 'email', 'pno', 'addr', and 'password'.
 
-        Returns:
-            str: Result message.
-        """
-        uid = self._generate_uid(user_info['email'])  # Generate a unique user ID
         hashed_password = bcrypt.hashpw(user_info['password'].encode('utf-8'), bcrypt.gensalt())
 
-        # User data to insert into the user table
+        # User data to insert into the user table, dictionary for better usage...
         user_data = {
             'uid': uid,
             'uname': user_info['uname'],
@@ -58,31 +51,19 @@ class Auth:
         return insert_response
 
     def _generate_uid(self, email: str) -> str:
-        """
-        Generate a unique user ID.
-        
-        Returns:
-            str: Unique user ID.
-        """
+
         return hashlib.sha256(email.encode()).hexdigest()[:16]
 
     def login(self, email: str, password: str) -> str:
-        """
-        Login a user and return a JWT token.
-
-        Args:
-            email (str): User's email.
-            password (str): User's password.
-
-        Returns:
-            str: JWT token if successful, otherwise error message.
-        """
+        
         user = self.db.fetch_row('user', 'email', email)
 
         if not user:
             return "User not found"
 
-        uid = user[0][0]  # Assuming uid is the first column
+        # uid, primary key is the first coloumn
+        uid = user[0][0]  
+
         hashed_password = self.db.fetch_row('user_passwords', 'uid', uid)[0][1]
 
         if bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8')):
@@ -92,32 +73,20 @@ class Auth:
 
 
     def _generate_token(self, uid: str) -> str:
-        """
-        Generate a JWT token.
 
-        Args:
-            uid (str): User ID to encode in the token.
-
-        Returns:
-            str: JWT token.
-        """
-        expiration = datetime.utcnow() + timedelta(hours=2)  # Token valid for 2 hours
+        #generate a jwt token valid for 30 days
+        expiration = datetime.now(timezone.utc) + timedelta(days=30)  
         token = jwt.encode({'uid': uid, 'exp': expiration}, self.secret_key, algorithm='HS256')
         return token
 
     def verify_token(self, token: str) -> dict:
-        """
-        Verify the JWT token.
-
-        Args:
-            token (str): JWT token to verify.
-
-        Returns:
-            dict: Decoded token data if valid, otherwise None.
-        """
+        
+        #verifies the jwt token...
         try:
             decoded = jwt.decode(token, self.secret_key, algorithms=['HS256'])
             return decoded
+        
+        #using errors from the jwt library itself
         except jwt.ExpiredSignatureError:
             return {"error": "Token has expired"}
         except jwt.InvalidTokenError:

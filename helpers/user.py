@@ -1,17 +1,25 @@
-from ..utils.db import DatabaseConnection
+from utils.db import DatabaseConnection
 
 class UserManager:
     def __init__(self):
         self.db = DatabaseConnection()
-    
-    def create_profile(self, user_data: dict) -> str:
-        """Create new user profile"""
-        pass
 
-    def update_profile(self, user_id: str, data: dict) -> str:
-        """Update user information"""
-        pass
+    def create_user(self, uid, uname, email, pno, addr, rdate):
+        data = {
+            "uid": uid,
+            "uname": uname,
+            "email": email,
+            "pno": pno,
+            "addr": addr,
+            "rdate": rdate
+        }
+        return self.db.insert_record("user", data)
 
-    def get_order_history(self, user_id: str) -> list:
-        """Get user's order history"""
-        pass
+    def get_user_by_id(self, uid):
+        return self.db.fetch_row("user", "uid", uid)
+
+    def update_user(self, uid, updates):
+        return self.db.update_record("user", updates, "uid", uid)
+
+    def delete_user(self, uid):
+        return self.db.remove_record("user", "uid", uid)

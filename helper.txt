@@ -3,11 +3,11 @@ if you want to use another name, just put that in .env and use that name wheneve
 
 2 create user table using
 
-create table user(uid varchar(16) primary key not null, uname varchar(40) not null, email varchar(60) not null, pno varchar(14) not null, addr varchar(80) not null, rdate date not null);
+create table user(uid varchar(16) primary key not null, uname varchar(40) not null, email varchar(60) unique not null, pno varchar(14) not null, addr varchar(80) not null, rdate date not null);
 
 3 create product table using 
 
-create table product(pid varchar(36) primary key not null, pname varchar(50) not null, cid varchar(16) not null, price int not null, stock int not null, adate date not null);
+create table product(pid varchar(36) primary key not null, pname varchar(50) not null, cid varchar(16) not null, price int not null, stock int not null, adate date not null, imgurl varchar(50));
 
 4 and so on
 
@@ -62,7 +62,8 @@ DB_NAME=ecom
 
 project/
 ├── utils/
-│   └── db.py            # Your existing database connection class
+│   ├── errors.py        # Search functionality
+│   └── db.py       # Payment processing
 ├── helpers/
 │   ├── auth.py          # User authentication & authorization
 │   ├── user.py          # User management
