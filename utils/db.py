@@ -6,16 +6,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class DatabaseConnection:
-    """
-    A class to handle MySQL/MariaDB database connections and operations.
-    Uses environment variables for database configuration from python-dotenv.
-    """
     
     def __init__(self):
-        """
-        Initialize database connection using environment variables.
-        Required environment variables: DB_HOST, DB_USER, DB_PASSWORD, DB_NAME
-        """
         # retrieve database info from loaded dotenv
         self.host = os.getenv("DB_HOST")
         self.user = os.getenv("DB_USER")
@@ -94,23 +86,6 @@ class DatabaseConnection:
             return "Record updated successfully"
 
     def remove_record(self, table_name: str, pk_column: str, pk_value: any) -> str:
-        """
-        Remove a record from the table if it exists.
-
-        Args:
-            table_name (str): Name of the table to delete from
-            pk_column (str): Name of the primary key column
-            pk_value (any): Value of the primary key for the record to delete
-
-        Returns:
-            str: Message indicating success or failure of deletion
-
-        Raises:
-            Exception: If database operation fails
-        
-        Example:
-            remove_record('users', 'id', '1')
-        """
         if not self.record_exists(table_name, pk_column, pk_value):
             return "Delete failed: Record does not exist"
         
@@ -134,10 +109,6 @@ class DatabaseConnection:
             return [list(row) for row in result]
 
     def close_connection(self):
-        """
-        Close the database connection.
-        Should be called when done with database operations.
-        """
         self.connection.close()
 
 
