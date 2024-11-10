@@ -10,7 +10,7 @@ class UserManager:
             "uname": uname,
             "email": email,
             "pno": pno,
-            "addr": addr,
+            # "addr": addr,
             "rdate": rdate
         }
         return self.db.insert_record("user", data)

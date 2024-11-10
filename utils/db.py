@@ -62,19 +62,6 @@ class DatabaseConnection:
             return cursor.fetchone() is not None
 
     def insert_record(self, table_name: str, data: dict) -> str:
-        """
-        Insert a new record into the table if it doesn't already exist.
-
-        Args:
-            table_name (str): Name of the table to insert into
-            data (dict): Dictionary containing column names as keys and values to insert
-
-        Returns:
-            str: Message indicating success or if record already exists
-        
-        Example:
-            insert_record('users', {'id': '1', 'name': 'John', 'email': 'john@example.com'})
-        """
         if self.record_exists(table_name, list(data.keys())[0], list(data.values())[0]):
             return "Not inserted because record already exists"
             

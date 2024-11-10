@@ -43,7 +43,7 @@ def test_auth_operations():
             'email': 'auth@example.com',
             'password': 'securepassword',
             'pno': '9876543210',
-            'addr': 'Auth St'
+            # 'addr': 'Auth St'
         }
         register_response = auth.register(user_info)
         print("User Registered:", register_response)
@@ -165,10 +165,9 @@ def main():
         test_product_deletion_operations()
         
     finally:
-        # Ensure the database connection is closed after tests
         db_conn = DatabaseConnection()
         db_conn.close_connection()
-        print("Database connection closed.")
+        print("Database connection closed :)")
 
 if __name__ == "__main__":
     main()

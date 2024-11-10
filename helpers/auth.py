@@ -27,7 +27,7 @@ class Auth:
             'uname': user_info['uname'],
             'email': user_info['email'],
             'pno': user_info['pno'],
-            'addr': user_info['addr'],
+            # 'addr': user_info['addr'],
             'rdate': datetime.now().date()
         }
 

@@ -16,7 +16,7 @@ TABLES = {
         "  uname VARCHAR(40) NOT NULL,"
         "  email VARCHAR(60) UNIQUE NOT NULL,"
         "  pno VARCHAR(14) NOT NULL,"
-        "  addr VARCHAR(80) NOT NULL,"
+        # "  addr VARCHAR(80) NOT NULL,"
         "  rdate DATE NOT NULL"
         ")"),
     'product': (
@@ -100,22 +100,27 @@ def create_tables(cursor):
     cursor.execute(f"USE {DB_NAME}")
     for table_name, table_description in TABLES.items():
         cursor.execute(table_description)
-        print(f"Table `{table_name}` created successfully.")
+        print(f"Table >{table_name} created successfully.")
 
 def describe_tables(cursor):
     cursor.execute(f"USE {DB_NAME}")
     for table_name in TABLES.keys():
-        print(f"\nDescription of `{table_name}` table:")
+        print(f"\nDescription of >{table_name} table:")
         cursor.execute(f"DESCRIBE {table_name}")
         for row in cursor.fetchall():
             print(row)
+
+def make_env():
+    password = input()
+    with open('.env', 'w+') as f:
+        f.writelines(f"DB_HOST=localhost\nDB_USER=root\nDB_PASSWORD={password}\nDB_NAME=ecom")
 
 try:
     cnx = pymysql.connect(
         host=DB_HOST,
         user=DB_USER,
         password=DB_PASSWORD,
-        charset='utf8mb4'
+
     )
     cursor = cnx.cursor()
 
