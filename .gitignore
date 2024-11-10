@@ -4,3 +4,4 @@
 ./.env
 
 *__pycache__*
+*ecom.egg-info
