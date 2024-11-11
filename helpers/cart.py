@@ -2,8 +2,9 @@ from utils.db import DatabaseConnection
 from utils.errors import RecordNotFoundError, ValidationError
 
 class CartManager:
-    def __init__(self):
-        self.db = DatabaseConnection()
+    def __init__(self, db: DatabaseConnection = None):
+        
+        self.db = DatabaseConnection() if not db else db
 
     def add_to_cart(self, crt_id, uid, pid, qty, price, adate):
         if not self.db.record_exists("user", "uid", uid):

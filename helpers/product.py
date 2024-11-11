@@ -1,8 +1,9 @@
 from utils.db import DatabaseConnection
 
 class ProductManager:
-    def __init__(self):
-        self.db = DatabaseConnection()
+    def __init__(self, db: DatabaseConnection = None):
+        
+        self.db = DatabaseConnection() if not db else db
 
     def add_product(self, pid, pname, cid, price, stock, adate, imgurl = None):
         data = {

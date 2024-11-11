@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 # load environment variables
 load_dotenv()
 
+
 class DatabaseConnection:
     
     def __init__(self):
@@ -13,7 +14,7 @@ class DatabaseConnection:
         self.user = os.getenv("DB_USER")
         self.password = os.getenv("DB_PASSWORD")
         self.database = os.getenv("DB_NAME")
-        
+        self.secret_key = os.getenv("SECRET_KEY")
         # connect to database
         self.connection = pymysql.connect(
             host=self.host,
@@ -21,6 +22,17 @@ class DatabaseConnection:
             password=self.password,
             database=self.database
         )
+
+    def execute_query(self, query, args=None):
+        cursor = self.connection.cursor()
+        conn = self.connection
+        try:
+            cursor.execute(query, args)
+            conn.commit()
+            return cursor
+        except:
+            pass
+        
 
     def fetch_table(self, table_name: str) -> list:
         with self.connection.cursor() as cursor:

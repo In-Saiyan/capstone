@@ -1,8 +1,9 @@
 from utils.db import DatabaseConnection
 
 class UserManager:
-    def __init__(self):
-        self.db = DatabaseConnection()
+    def __init__(self, db: DatabaseConnection = None):
+        
+        self.db = DatabaseConnection() if not db else db
 
     def create_user(self, uid, uname, email, pno, addr, rdate):
         data = {

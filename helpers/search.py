@@ -2,8 +2,9 @@ from utils.db import DatabaseConnection
 from utils.errors import RecordNotFoundError
 
 class SearchManager:
-    def __init__(self):
-        self.db = DatabaseConnection()
+    def __init__(self, db: DatabaseConnection = None):
+        
+        self.db = DatabaseConnection() if not db else db
 
     def search_products_by_name(self, name):
         query = "SELECT * FROM product WHERE pname LIKE %s"

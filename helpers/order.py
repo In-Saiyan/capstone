@@ -2,8 +2,9 @@ from utils.db import DatabaseConnection
 from utils.errors import OutOfStockError, OrderError
 
 class OrderManager:
-    def __init__(self):
-        self.db = DatabaseConnection()
+    def __init__(self, db: DatabaseConnection = None):
+        
+        self.db = DatabaseConnection() if not db else db
 
     def place_order(self, oid, uid, pid, odate, qty, tprice):
         

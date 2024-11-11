@@ -10,8 +10,9 @@ import hashlib
 # jwt.encode({'uid': uid, 'exp': expiration}, self.secret_key, algorithm='HS256')
 
 class Auth:
-    def __init__(self):
-        self.db = DatabaseConnection()
+    def __init__(self, db: DatabaseConnection = None):
+        
+        self.db = DatabaseConnection() if not db else db
         self.secret_key = os.getenv("SECRET_KEY", "your_secret_key")  # Replace with a secure key
 
     def register(self, user_info: dict) -> str:

@@ -2,4 +2,4 @@
 name = "ecom"
 version = "0.1.0"
 description = "a part of backend for CTP project"
-dependencies = ["python-dotenv", "pymysql", "bcrypt", "pyjwt"]
+dependencies = ["python-dotenv", "pymysql", "bcrypt", "pyjwt", "flask"]
