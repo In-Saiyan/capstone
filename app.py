@@ -33,19 +33,6 @@ def register():
                 "password":password
             }
             authenticator.register(data)
-
-        
-        # Insert data into the database
-        # query = """
-        #     INSERT INTO user (uid, uname, email, pno, addr, rdate)
-        #     VALUES (%s, %s, %s, %s, %s, %s)
-        # """
-        # params = (uid, uname, email, pno, addr, rdate)
-        # execute_query(query, params)
-
-        
-
-        # Flash a success message and redirect
         flash('User registered successfully!', 'success')
         return redirect(url_for('register'))
     return render_template('register.html')
@@ -59,19 +46,6 @@ def login():
         password = request.form['password']
         
         print(authenticator.login(email, password))
-
-        
-        # Insert data into the database
-        # query = """
-        #     INSERT INTO user (uid, uname, email, pno, addr, rdate)
-        #     VALUES (%s, %s, %s, %s, %s, %s)
-        # """
-        # params = (uid, uname, email, pno, addr, rdate)
-        # execute_query(query, params)
-
-        
-
-        # Flash a success message and redirect
         flash('Logged in!', 'success')
         return redirect(url_for('login'))
     return render_template('login.html')

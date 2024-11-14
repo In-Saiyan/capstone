@@ -9,13 +9,13 @@ load_dotenv()
 class DatabaseConnection:
     
     def __init__(self):
-        # retrieve database info from loaded dotenv
+        
         self.host = os.getenv("DB_HOST")
         self.user = os.getenv("DB_USER")
         self.password = os.getenv("DB_PASSWORD")
         self.database = os.getenv("DB_NAME")
         self.secret_key = os.getenv("SECRET_KEY")
-        # connect to database
+        
         self.connection = pymysql.connect(
             host=self.host,
             user=self.user,
@@ -122,9 +122,6 @@ class DatabaseConnection:
 
     def close_connection(self):
         self.connection.close()
-
-
-
 """
 Code by Aryan Singh LIT2024021.
 """
